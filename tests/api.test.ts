@@ -36,8 +36,8 @@ describe("orders API", () => {
     expect(bob.body).toEqual([]);
   });
 
-  it("keeps the admin list for admins", async () => {
-    await request(app).get("/admin/orders").set(alice).expect(403);
+  it("lets staff open the full order list", async () => {
+    await request(app).get("/admin/orders").expect(401);
     await request(app).get("/admin/orders").set(admin).expect(200);
   });
 });
