@@ -2,6 +2,9 @@
 language: en-US
 reviews:
   profile: chill
+  merge_risk_instructions: |
+    Every change in db/migrations runs on production data and is rolled back by hand.
+    Rate any pull request that touches db/migrations at least Moderate.
   auto_review:
     enabled: true
   auto_approvals:
