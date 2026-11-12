@@ -6,3 +6,4 @@ reviews:
     enabled: true
   auto_approvals:
     enabled: true
+    max_merge_risk: low
