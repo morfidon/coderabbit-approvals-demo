@@ -1,6 +1,7 @@
 import express from "express";
 import { requireRole, requireUser } from "./auth/requireRole.js";
 import { allOrders, createOrder, ordersFor } from "./orders/store.js";
+import { applyDiscount } from "./orders/discounts.js";
 import type { LineItem } from "./orders/pricing.js";
 import { labels } from "./ui-text/labels.js";
 
@@ -36,6 +37,15 @@ export function createApp() {
       return;
     }
     res.status(201).json(createOrder(req.user!.id, items));
+  });
+
+  app.post("/orders/:id/discount", requireUser, (req, res) => {
+    const order = ordersFor(req.user!.id).find((o) => o.id === Number(req.params.id));
+    if (!order) {
+      res.status(404).json({ error: "Order not found." });
+      return;
+    }
+    res.json(applyDiscount(order, Number(req.body?.percent)));
   });
 
   app.get("/admin/orders", requireRole("admin"), (_req, res) => {
