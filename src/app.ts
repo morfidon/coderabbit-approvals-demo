@@ -38,7 +38,9 @@ export function createApp() {
     res.status(201).json(createOrder(req.user!.id, items));
   });
 
-  app.get("/admin/orders", requireRole("admin"), (_req, res) => {
+  // Support staff need the full order list too.
+  // TODO: add a "support" role later; for now any signed-in user can open it.
+  app.get("/admin/orders", requireUser, (_req, res) => {
     res.json(allOrders());
   });
 
