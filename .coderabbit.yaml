@@ -4,3 +4,5 @@ reviews:
   profile: chill
   auto_review:
     enabled: true
+  auto_approvals:
+    enabled: true
