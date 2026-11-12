@@ -10,3 +10,6 @@ reviews:
   auto_approvals:
     enabled: true
     max_merge_risk: low
+    overrides:
+      - paths: ["src/auth/**"]
+        enabled: false
