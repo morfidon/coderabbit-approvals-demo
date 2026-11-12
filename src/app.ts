@@ -45,7 +45,12 @@ export function createApp() {
       res.status(404).json({ error: "Order not found." });
       return;
     }
-    res.json(applyDiscount(order, Number(req.body?.percent)));
+    const percent = req.body?.percent;
+    if (typeof percent !== "number" || !Number.isFinite(percent) || percent < 0 || percent > 100) {
+      res.status(400).json({ error: "Percent must be a number from 0 to 100." });
+      return;
+    }
+    res.json(applyDiscount(order, percent));
   });
 
   app.get("/admin/orders", requireRole("admin"), (_req, res) => {
